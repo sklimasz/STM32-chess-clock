@@ -1,0 +1,10 @@
+03:22:55 **** Incremental Build of configuration Debug for project PMIK-zegar ****
+make -j12 all 
+arm-none-eabi-size   PMIK-zegar.elf 
+   text	   data	    bss	    dec	    hex	filename
+  28996	    316	   2236	  31548	   7b3c	PMIK-zegar.elf
+Finished building: default.size.stdout
+ 
+
+03:22:56 Build Finished. 0 errors, 0 warnings. (took 287ms)
+

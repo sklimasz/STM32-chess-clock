@@ -1,0 +1,9 @@
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:wyswietlacz_asaptesting Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:mata-test Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:PMIK-zegar Debug
+eclipse.preferences.version=1
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:PMIK-zegar\ Debug/activeLaunchMode=debug
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:PMIK-zegar\ Debug/activeLaunchTarget=null\:---
+org.eclipse.launchbar.core.descriptorType.default\:PMIK-zegar\ Debug/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:PMIK-zegar\ Debug/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local

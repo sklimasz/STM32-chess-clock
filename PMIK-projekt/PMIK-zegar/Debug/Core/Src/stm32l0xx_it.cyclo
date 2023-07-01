@@ -1,0 +1,9 @@
+stm32l0xx_it.c:75:6:NMI_Handler	1
+stm32l0xx_it.c:90:6:HardFault_Handler	1
+stm32l0xx_it.c:105:6:SVC_Handler	1
+stm32l0xx_it.c:118:6:PendSV_Handler	1
+stm32l0xx_it.c:131:6:SysTick_Handler	3
+stm32l0xx_it.c:155:6:EXTI0_1_IRQHandler	5
+stm32l0xx_it.c:183:6:EXTI2_3_IRQHandler	7
+stm32l0xx_it.c:229:6:TIM2_IRQHandler	1
+stm32l0xx_it.c:243:6:TIM3_IRQHandler	2

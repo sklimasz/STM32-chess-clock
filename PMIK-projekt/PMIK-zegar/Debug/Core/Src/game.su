@@ -1,0 +1,12 @@
+../Core/Src/game.c:38:6:changeGameState	16	static
+../Core/Src/game.c:45:5:compareGameState	24	static
+../Core/Src/game.c:56:6:choosePreset	8	static
+../Core/Src/game.c:64:6:startGame	8	static
+../Core/Src/game.c:75:6:pauseGame	8	static
+../Core/Src/game.c:81:6:resumeGame	8	static
+../Core/Src/game.c:87:6:endGame	8	static
+../Core/Src/game.c:96:6:updateTime	48	static
+../Core/Src/game.c:119:6:changePlayer	16	static
+../Core/Src/game.c:132:6:changePrintStringPreset	16	static
+../Core/Src/game.c:140:6:changePrintStringGame	40	static
+../Core/Src/game.c:152:6:sendTime	16	static

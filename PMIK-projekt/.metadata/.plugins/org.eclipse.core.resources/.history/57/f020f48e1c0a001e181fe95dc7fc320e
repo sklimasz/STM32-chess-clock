@@ -1,0 +1,142 @@
+/*
+ * game.c
+ *
+ *  Created on: May 13, 2023
+ *      Authors: Szymon Klimaszewski, Kajetan Łachański
+ */
+
+#include "game.h"
+#include <stdio.h>
+#include "main.h"
+
+//#include "stm32l0xx_hal_uart.h"
+
+// time expressed as multiples of 250ms ( timer interrupt period ),
+// (except presets, which are expressed as [min]:[s])
+// eg. startTime = 240 => 60 sec = 1 min
+
+Game game = {
+			.gameState = "Setting",	// current state of the game ( Setting/Playing/Paused )
+			.currPlayer = 0,		// 0 or 1
+			.currTimes = {240,240},	// players remaining times
+			.startTime = 240,
+			.increment = 0,
+			.presetIndex = 0,
+			.presets =	{ // {startTime [min] , increment [sec] }
+				{1,0},  {2,1},   {3,0},
+				{3,2},  {5,0},   {5,3},
+				{10,0}, {10,5},  {15,10},
+				{30,0}, {30,20}, {45,0} }
+	};
+
+char printString[20] = "01.PLU5.00";	// initial value to display
+
+extern UART_HandleTypeDef huart1;	//CHANGE
+char message[] = "wiadomosc\r\n";	//CHANGE
+
+
+void changeGameState(char* state)
+{
+//	printf("Game state: %s\n",state); #debugging
+	strcpy(game.gameState, state);
+}
+
+
+int compareGameState(char* state)
+{
+	int dummy = strcmp(game.gameState, state); //strcmp returns 0 if input strings are equal
+	if (dummy == 0)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+
+void choosePreset()
+{
+	game.presetIndex = (game.presetIndex + 1) % 11;		// modulo ensures value range of (0-11)
+	game.startTime = game.presets[game.presetIndex][0] * 60 * 4;	// minutes to multiples of 250ms
+	game.increment = game.presets[game.presetIndex][1] * 4;
+}
+
+
+void startGame()
+{
+	changeGameState("Playing");
+	game.currTimes[0] = game.startTime;
+	game.currTimes[1] = game.startTime;
+	game.currPlayer = 0;
+}
+
+
+void pauseGame()
+{
+	changeGameState("Paused");
+}
+
+
+void resumeGame()
+{
+	changeGameState("Playing");
+}
+
+
+void endGame()
+{
+	changeGameState("Setting");
+	changePlayer(0);
+}
+
+
+void updateTime()
+{
+	game.currTimes[game.currPlayer]--;			// decrement time
+	if(game.currTimes[game.currPlayer] <= 0)	// if time runs out, end the game
+	{
+		endGame();
+	}
+}
+
+
+void changePlayer(int selectedPlayer)		// switch player
+{
+	if(game.currPlayer != selectedPlayer)	// ensures that nothing will happen if player clicks the same button twice
+	{
+		game.currTimes[game.currPlayer] += game.increment;	// add increment
+
+		sendTime();
+
+		game.currPlayer = selectedPlayer;					// switch player
+	}
+}
+
+
+void changePrintStringPreset()				// format preset string to be displayed
+{
+    int startTime = game.presets[game.presetIndex][0];		// get startTime
+    int increment = game.presets[game.presetIndex][1];		// get increment
+    sprintf(printString, "%02d.PLU5.%02d", startTime, increment);	// formatted string saved in printString variable
+}
+
+
+void changePrintStringGame()				// format current times to be displayed
+{
+	// players times in minutes and seconds instead of multiplies of 250ms
+    int p0_min = game.currTimes[0]/(4*60);
+    int p0_sec = (game.currTimes[0]/4)%60;
+    int p1_min = game.currTimes[1]/(4*60);
+    int p1_sec = (game.currTimes[1]/4)%60;
+
+    sprintf(printString, "%02d.%02d.%02d.%02d",	//formatted times string saved in printString variable
+    		p0_min, p0_sec, p1_min, p1_sec);
+}
+
+void sendTime()
+{
+	int p_min = game.currTimes[game.currPlayer]/(4*60);
+	int p_sec = (game.currTimes[game.currPlayer]/4)%60;
+	sprintf(message,"%02d.%02d\r\n",p_min,p_sec);
+	HAL_UART_Transmit(&huart1, (uint8_t*) message, strlen(message1), HAL_MAX_DELAY);
+}
+

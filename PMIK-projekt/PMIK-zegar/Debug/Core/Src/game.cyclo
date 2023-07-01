@@ -1,0 +1,12 @@
+game.c:38:6:changeGameState	1
+game.c:45:5:compareGameState	2
+game.c:56:6:choosePreset	1
+game.c:64:6:startGame	1
+game.c:75:6:pauseGame	1
+game.c:81:6:resumeGame	1
+game.c:87:6:endGame	1
+game.c:96:6:updateTime	4
+game.c:119:6:changePlayer	2
+game.c:132:6:changePrintStringPreset	1
+game.c:140:6:changePrintStringGame	3
+game.c:152:6:sendTime	3
